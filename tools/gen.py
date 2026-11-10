@@ -98,57 +98,72 @@ def cta(title="Have a game or app in mind?", text="Tell us what you want to buil
 </div></div></section>'''
 
 # ------------- data -------------
-GAMES = [
- dict(n="Skyforge Rush", m="Sf", g="action", gl="Action · 3D runner", d="Sprint across floating forge-islands, chain wall-runs and outrun a collapsing sky.", s="dev", sl="In development", c=("#3a2414", "#120a06", "#ff9a4d"), p="Android · iOS"),
- dict(n="Crown &amp; Coin", m="Cc", g="casual", gl="Casual · Idle builder", d="Grow a tiny kingdom into a trading empire. It keeps earning while you are away.", s="dev", sl="In development", c=("#2e2a12", "#100e05", "#f2d06b"), p="Android · iOS"),
- dict(n="Neon Drift", m="Nd", g="racing action", gl="Racing · Arcade", d="One-thumb drift racing through rain-soaked city loops with weekly ghost leagues.", s="dev", sl="In development", c=("#101a3d", "#05081a", "#6f8cff"), p="Android · iOS"),
+# What Zevoro builds (no specific titles until the studio is ready to show them)
+GAME_GENRES = [
+ ("Hyper-casual", "One-tap games that are easy to learn and quick to replay."),
+ ("Casual &amp; puzzle", "Relaxing levels, match and merge mechanics, daily challenges."),
+ ("Action &amp; arcade", "Fast reflex games, runners and shooters with tight controls."),
+ ("Racing &amp; sports", "Arcade driving, drifting and quick-match sports games."),
+ ("Idle &amp; simulation", "Builders and tycoon games that grow while players are away."),
+ ("Kids &amp; educational", "Safe, colourful games that teach while they entertain."),
 ]
 
-def game_card(g):
-    a, b, c = g["c"]
-    if g.get("url"):
-        foot = f'<span class="rating">{I["star"]} {g["r"]}</span><span>{g["dl"]} downloads</span>'
-        link = f'<a class="link-arrow" href="{g["url"]}" target="_blank" rel="noopener">Get it on Google Play {I["arrow"]}</a>'
-    else:
-        foot = '<span>Coming soon</span><span>Android · iOS</span>'
-        link = ""
-    return f'''<article class="game-card" data-genre="{g["g"]}">
-  <div class="art" style="--a:{a};--b:{b};--c:{c}"><span class="art-badge" data-status="{g["s"]}">{g["sl"]}</span><span class="art-mono" aria-hidden="true">{g["m"]}</span></div>
-  <div class="card-body"><h3>{g["n"]}</h3><p>{g["d"]}</p><div class="card-tags"><span class="tag">{g["gl"]}</span><span class="tag">{g["p"]}</span></div>{link}</div>
-  <div class="card-foot">{foot}</div>
-</article>'''
+APP_CATEGORIES = [
+ ("Utilities", "Scanners, cleaners, converters, file tools and everyday helpers."),
+ ("Generative AI", "Chat assistants, AI photo and video tools, writing and voice apps."),
+ ("Productivity", "Notes, planners, to-do lists and tools for small teams."),
+ ("Health &amp; fitness", "Workouts, habit trackers, meditation and wellness apps."),
+ ("Finance", "Budgeting, expense tracking, invoicing and calculators."),
+ ("E-commerce", "Shopping apps, catalogues, ordering and delivery."),
+ ("Education", "Learning apps, quizzes, language and exam preparation."),
+ ("Social &amp; lifestyle", "Communities, messaging, photo, music and entertainment apps."),
+]
 
-def featured_game(eyebrow="Coming soon", heading="Skyforge Rush"):
-    return f'''<div class="wrap split">
-    <div class="art" style="--a:#3a2414;--b:#120a06;--c:#ff9a4d;border-radius:20px;aspect-ratio:4/3" aria-hidden="true"><span class="art-badge" data-status="dev">In development</span><span class="art-mono" style="font-size:4rem">Sf</span></div>
-    <div class="split-copy">
-      <span class="eyebrow">{eyebrow}</span>
-      <h2>{heading}</h2>
-      <p class="lede">Our first 3D title. Sprint across floating forge-islands, chain wall-runs and outrun a collapsing sky, in short runs made for one more try.</p>
-      <ul class="feature-list" style="font-size:1rem">
-        <li>3D endless runner built in Unity</li>
-        <li>Android and iOS</li>
-        <li>Being tested with real players before launch</li>
-      </ul>
-      <div class="hero-actions"><a class="btn btn--gold" href="contact.html">Get launch updates {I["arrow"]}</a></div>
+APP_TECH = [
+ ("Native iOS", ["Swift", "SwiftUI", "UIKit"]),
+ ("Native Android", ["Kotlin", "Jetpack Compose", "Java"]),
+ ("Cross-platform", ["Flutter (Dart)", "React Native"]),
+ ("Backend &amp; cloud", ["Firebase", "Node.js", "REST &amp; GraphQL APIs"]),
+ ("Generative AI", ["OpenAI", "Google Gemini", "Claude", "On-device ML"]),
+ ("Monetization &amp; analytics", ["In-app purchases", "Subscriptions", "AdMob", "Firebase Analytics"]),
+]
+
+GAME_TECH = [
+ ("Engine", ["Unity", "C#"]),
+ ("Platforms", ["Android", "iOS"]),
+ ("Art", ["2D art &amp; animation", "3D models &amp; animation"]),
+ ("Services", ["Google Play Games", "Game Center", "Leaderboards", "Cloud save"]),
+ ("Monetization", ["Rewarded ads", "In-app purchases", "Unity Ads", "AdMob"]),
+ ("Growth", ["ASO", "User acquisition", "Analytics &amp; A/B tests"]),
+]
+
+def cat_grid(items, cols=""):
+    return f'<div class="cat-grid {cols}">' + "".join(f'<div class="cat"><h3>{t}</h3><p>{d}</p></div>' for t, d in items) + "</div>"
+
+def tech_groups(groups):
+    return '<div class="tech-groups">' + "".join(
+        f'<div class="tech-group"><h3>{t}</h3><div class="chips">' + "".join(f"<span>{c}</span>" for c in cs) + "</div></div>" for t, cs in groups) + "</div>"
+
+def build_duo():
+    return f'''<div class="wrap">
+    <div class="section-head"><span class="eyebrow">What we build</span><h2>Games and apps, under one roof</h2><p class="lede">We make mobile games and mobile apps for Android and iOS. Same team, same standard of polish, same focus on growth.</p></div>
+    <div class="duo">
+      <a class="duo-card" href="games.html">
+        <div class="service-icon">{I["pad"]}</div>
+        <h3>Mobile games</h3>
+        <p>2D and 3D games built in Unity for Android and iOS, from hyper-casual to mid-core.</p>
+        <div class="chips"><span>Android</span><span>iOS</span><span>Unity</span><span>2D &amp; 3D</span><span>Casual</span><span>Puzzle</span><span>Action</span><span>Idle</span></div>
+        <span class="link-arrow">Explore games {I["arrow"]}</span>
+      </a>
+      <a class="duo-card" href="apps.html">
+        <div class="service-icon">{I["phone"]}</div>
+        <h3>Mobile apps</h3>
+        <p>Native and cross-platform apps, from everyday utilities to Generative AI products.</p>
+        <div class="chips"><span>Swift</span><span>Kotlin</span><span>Flutter</span><span>React Native</span><span>Utilities</span><span>Generative AI</span><span>Productivity</span><span>Finance</span></div>
+        <span class="link-arrow">Explore apps {I["arrow"]}</span>
+      </a>
     </div>
   </div>'''
-
-APPS = [
- dict(n="Lumen Notes", m="Ln", cat="Productivity", d="Notes that link themselves. Write fast, find anything, sync across phone and tablet.", f=["Offline-first sync", "Handwriting search", "Shared notebooks"], c=("#2b2f45", "#121524", "#9fb2ff")),
- dict(n="PocketLedger", m="Pl", cat="Finance", d="A calm budgeting app for freelancers. Splits income, tracks invoices and sets tax aside.", f=["Bank-grade encryption", "Invoice reminders", "Multi-currency"], c=("#2b2a14", "#121106", "#f2d06b")),
- dict(n="FitPulse", m="Fp", cat="Health &amp; fitness", d="Ten-minute workouts that adapt to your week, with wearable sync and streaks that stick.", f=["Apple Health &amp; Google Fit", "Adaptive plans", "Coach audio"], c=("#3a1a1a", "#150707", "#ff8a7a")),
- dict(n="Wayfare", m="Wf", cat="Travel", d="Plan a trip with friends in one shared timeline: flights, stays, budgets and maps.", f=["Live shared itinerary", "Expense splitting", "Offline maps"], c=("#123228", "#06130f", "#6fe0b0")),
-]
-
-def app_card(a):
-    x, y, z = a["c"]
-    feats = "".join(f"<li>{f}</li>" for f in a["f"])
-    return f'''<article class="app-card">
-  <div class="app-icon" style="--a:{x};--b:{y};--c:{z}" aria-hidden="true">{a["m"]}</div>
-  <div class="meta"><span class="app-cat">{a["cat"]}</span><h3>{a["n"]}</h3><p>{a["d"]}</p><ul class="feature-list">{feats}</ul>
-  <div class="app-stores"><span class="tag">Concept</span><span class="tag">Android · iOS</span></div></div>
-</article>'''
 
 SERVICES = [
  ("pad", "2D &amp; 3D mobile games", "Unity games for Android and iOS, from a fast first prototype to a polished store launch.", ["Unity &amp; C#", "2D and 3D art pipelines", "Android &amp; iOS"]),
@@ -186,7 +201,7 @@ HOME = f'''
       <h1>Games worth replaying. <span class="gold-text">Apps worth keeping.</span></h1>
       <p class="lede">Zevoro is an independent studio building 2D and 3D mobile games and practical apps for players worldwide, with user acquisition, ASO and monetization built in from day one.</p>
       <div class="hero-actions"><a class="btn btn--gold" href="games.html">Explore our games {I["arrow"]}</a><a class="btn btn--ghost" href="contact.html">Start a project</a></div>
-      <div class="hero-meta"><span>Unity</span><span>Android &amp; iOS</span><span>ASO &amp; UA</span><span>Monetization</span></div>
+      <div class="hero-meta"><span>Unity</span><span>Swift &amp; Kotlin</span><span>Flutter</span><span>Generative AI</span></div>
     </div>
     <div class="hero-stage" aria-hidden="true">
       <div class="stage-panel"></div>
@@ -210,7 +225,7 @@ HOME = f'''
 </section>
 
 <section class="section">
-  {featured_game()}
+  {build_duo()}
 </section>
 
 <section class="section section--alt" id="services">
@@ -264,29 +279,37 @@ GAMES_PAGE = f'''
   <div class="wrap">
     <span class="eyebrow">Games</span>
     <h1>Worlds made for <span class="gold-text">one more round</span></h1>
-    <p class="lede">2D and 3D mobile games built in Unity for Android and iOS. Easy to start, satisfying to master, and tuned with real player data.</p>
+    <p class="lede">2D and 3D mobile games for Android and iOS, built in Unity. Easy to start, satisfying to master, and tuned with real player data.</p>
   </div>
 </section>
 
 <section class="section" style="padding-top:clamp(24px,3vw,40px)">
-  {featured_game("Our first 3D game", "Skyforge Rush")}
+  <div class="wrap">
+    <div class="section-head"><span class="eyebrow">Platforms</span><h2>Built for Android and iOS</h2><p class="lede">Every game ships on both stores from one Unity codebase, tuned for each platform's devices, controls and store rules.</p></div>
+    <div class="platforms">
+      <div class="platform"><span class="p-k">Android</span><p>Google Play, from budget phones to flagships and tablets.</p></div>
+      <div class="platform"><span class="p-k">iOS</span><p>iPhone and iPad, built to App Store guidelines.</p></div>
+      <div class="platform"><span class="p-k">2D</span><p>Hand-drawn and vector art, sprite animation, crisp on every screen.</p></div>
+      <div class="platform"><span class="p-k">3D</span><p>Low-poly to stylised 3D worlds, optimised for mobile frame rates.</p></div>
+    </div>
+  </div>
 </section>
 
 <section class="section section--alt">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow">All games</span><h2>In the pipeline</h2></div>
-    <div class="filters" role="group" aria-label="Filter games by genre">
-      <button class="filter" type="button" data-filter="all" aria-pressed="true">All games</button>
-            <button class="filter" type="button" data-filter="casual" aria-pressed="false">Casual</button>
-      <button class="filter" type="button" data-filter="action" aria-pressed="false">Action</button>
-      <button class="filter" type="button" data-filter="racing" aria-pressed="false">Racing</button>
-    </div>
-    <div class="grid-3 games-grid">{"".join(game_card(g) for g in GAMES)}</div>
-    <p class="empty-note" hidden>No games in this genre yet. Check back soon.</p>
+    <div class="section-head"><span class="eyebrow">Genres</span><h2>The kinds of games we make</h2></div>
+    {cat_grid(GAME_GENRES, "cat-grid--3")}
   </div>
 </section>
 
 <section class="section">
+  <div class="wrap">
+    <div class="section-head"><span class="eyebrow">Game tech</span><h2>Our game development stack</h2></div>
+    {tech_groups(GAME_TECH)}
+  </div>
+</section>
+
+<section class="section section--alt">
   <div class="wrap">
     <div class="section-head"><span class="eyebrow">How our games are made</span><h2>Fun first, then growth</h2></div>
     <div class="values">
@@ -306,34 +329,28 @@ APPS_PAGE = f'''
   <div class="wrap">
     <span class="eyebrow">Apps</span>
     <h1>Apps that earn a place on the <span class="gold-text">home screen</span></h1>
-    <p class="lede">Practical, user-focused mobile apps for Android and iOS, with the same attention to feel and growth we give our games.</p>
+    <p class="lede">Native and cross-platform apps for Android and iOS, from everyday utilities to Generative AI, built with Swift, Kotlin, Flutter and React Native.</p>
   </div>
 </section>
 
 <section class="section" style="padding-top:clamp(24px,3vw,40px)">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow">App concepts</span><h2>The kind of apps we build</h2></div>
-    <div class="grid-2">{"".join(app_card(a) for a in APPS)}</div>
+    <div class="section-head"><span class="eyebrow">App categories</span><h2>The kinds of apps we build</h2></div>
+    {cat_grid(APP_CATEGORIES)}
   </div>
 </section>
 
 <section class="section section--alt">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow">What we offer</span><h2>Everything an app needs to launch and grow</h2></div>
-    {services_html(APP_SERVICES)}
+    <div class="section-head"><span class="eyebrow">Technologies</span><h2>Native, cross-platform and AI</h2><p class="lede">We choose the stack per project: fully native when performance and platform features matter most, cross-platform when one codebase for both stores saves time.</p></div>
+    {tech_groups(APP_TECH)}
   </div>
 </section>
 
 <section class="section">
-  <div class="wrap split">
-    <div class="split-copy">
-      <span class="eyebrow">Tools</span>
-      <h2>Proven tools, chosen per project</h2>
-      <p class="lede">We pick the stack that gets the product to players fastest and keeps it easy to improve after launch.</p>
-    </div>
-    <div class="stack">
-      <span>Unity</span><span>C#</span><span>Android</span><span>iOS</span><span>Firebase</span><span>Google Play Console</span><span>App Store Connect</span><span>AdMob</span><span>Unity Ads</span><span>Figma</span>
-    </div>
+  <div class="wrap">
+    <div class="section-head"><span class="eyebrow">What we offer</span><h2>Everything an app needs to launch and grow</h2></div>
+    {services_html(APP_SERVICES)}
   </div>
 </section>
 
@@ -466,8 +483,8 @@ CONTACT_PAGE = f'''
 
 PAGES = [
  ("index.html", "Zevoro", "Zevoro is an independent mobile game and app studio in Lahore building 2D and 3D games and practical apps, with growth built in from day one.", HOME),
- ("games.html", "Games · Zevoro", "Mobile games in development at Zevoro, a Unity studio in Lahore.", GAMES_PAGE),
- ("apps.html", "Apps · Zevoro", "iOS and Android apps designed and built by Zevoro.", APPS_PAGE),
+ ("games.html", "Games · Zevoro", "2D and 3D mobile games for Android and iOS, built in Unity by Zevoro.", GAMES_PAGE),
+ ("apps.html", "Apps · Zevoro", "Mobile apps for Android and iOS by Zevoro: Swift, Kotlin, Flutter and React Native, from utilities to Generative AI.", APPS_PAGE),
  ("about.html", "About · Zevoro", "About Zevoro, an independent mobile game and app studio founded in Lahore in 2024.", ABOUT_PAGE),
  ("contact.html", "Contact · Zevoro", "Start a game or app project with Zevoro.", CONTACT_PAGE),
 ]
