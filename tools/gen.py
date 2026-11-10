@@ -101,11 +101,14 @@ def cta(title="Have a game or app in mind?", text="Tell us what you want to buil
 # What Zevoro builds (no specific titles until the studio is ready to show them)
 GAME_GENRES = [
  ("Hyper-casual", "One-tap games that are easy to learn and quick to replay."),
+ ("Simulation", "Life, driving, farming and job simulators with satisfying detail."),
+ ("RPG", "Heroes, quests, loot and progression systems players invest in."),
+ ("Adventure", "Story-driven worlds to explore, with puzzles and discoveries."),
  ("Casual &amp; puzzle", "Relaxing levels, match and merge mechanics, daily challenges."),
  ("Action &amp; arcade", "Fast reflex games, runners and shooters with tight controls."),
  ("Racing &amp; sports", "Arcade driving, drifting and quick-match sports games."),
- ("Idle &amp; simulation", "Builders and tycoon games that grow while players are away."),
- ("Kids &amp; educational", "Safe, colourful games that teach while they entertain."),
+ ("Idle &amp; tycoon", "Builders and business games that grow while players are away."),
+ ("Kids &amp; more", "Educational, party and board games, and new genres as trends move."),
 ]
 
 APP_CATEGORIES = [
@@ -151,8 +154,8 @@ def build_duo():
       <a class="duo-card" href="games.html">
         <div class="service-icon">{I["pad"]}</div>
         <h3>Mobile games</h3>
-        <p>2D and 3D games built in Unity for Android and iOS, from hyper-casual to mid-core.</p>
-        <div class="chips"><span>Android</span><span>iOS</span><span>Unity</span><span>2D &amp; 3D</span><span>Casual</span><span>Puzzle</span><span>Action</span><span>Idle</span></div>
+        <p>2D and 3D games built in Unity for Android and iOS, from hyper-casual to simulation, RPG and adventure.</p>
+        <div class="chips"><span>Android</span><span>iOS</span><span>Unity</span><span>2D &amp; 3D</span><span>Hyper-casual</span><span>Simulation</span><span>RPG</span><span>Adventure</span></div>
         <span class="link-arrow">Explore games {I["arrow"]}</span>
       </a>
       <a class="duo-card" href="apps.html">
