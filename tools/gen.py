@@ -58,6 +58,9 @@ THEME_BOOT = '''<script>(function(){try{var t=localStorage.getItem("zevoro-theme
 FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Michroma&family=Sora:wght@500;600;700&display=swap">'
 FAVICON = '<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 516 300%27%3E%3Cpath fill=%27%23d6b068%27 d=%27M2 119 L92 30 Q120 4 168 4 L513 4 L370 96 Q334 119 290 119 Z M2 297 L178 190 Q206 167 244 167 L493 167 L408 262 Q370 297 318 297 Z%27/%3E%3C/svg%3E">'
 
+import hashlib
+ASSET_V = hashlib.md5(((OUT / 'styles.css').read_bytes() + (OUT / 'main.js').read_bytes())).hexdigest()[:8]
+
 def page(fname, title, desc, body):
     return f'''<!doctype html>
 <html lang="en">
@@ -69,7 +72,7 @@ def page(fname, title, desc, body):
 <meta name="theme-color" content="#0d0d0f">
 {FAVICON}
 {FONTS}
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v={ASSET_V}">
 {THEME_BOOT}
 </head>
 <body>
@@ -79,7 +82,7 @@ def page(fname, title, desc, body):
 {body}
 </main>
 {FOOTER}
-<script src="main.js"></script>
+<script src="main.js?v={ASSET_V}"></script>
 </body>
 </html>
 '''
@@ -200,7 +203,7 @@ HOME = f'''
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <span class="eyebrow">Mobile game &amp; app studio · Lahore</span>
+      <span class="eyebrow">Games &amp; apps studio</span>
       <h1>Games worth replaying. <span class="gold-text">Apps worth keeping.</span></h1>
       <p class="lede">Zevoro is an independent studio building 2D and 3D mobile games and practical apps for players worldwide, with user acquisition, ASO and monetization built in from day one.</p>
       <div class="hero-actions"><a class="btn btn--gold" href="games.html">Explore our games {I["arrow"]}</a><a class="btn btn--ghost" href="contact.html">Start a project</a></div>
